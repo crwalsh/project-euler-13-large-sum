@@ -32,8 +32,7 @@ void addition(std::string& total, std::string number) {
     }
     int i = 0; 
     while(total[i] == '0') {
-        total.erase(i, i);
-        i++; 
+        total.erase(0, 1);
     }
 }
 int main() {

@@ -30,9 +30,12 @@ void addition(std::string& total, std::string number) {
     if(remainder > 0) {
         total.insert(total.begin(), remainder + '0');
     }
-    int i = 0; 
-    while(total[i] == '0') {
-        total.erase(0, 1);
+    std::size_t pos = total.find_first_not_of('0');
+    if (pos != std::string::npos) {
+        total.erase(0, pos);
+    }
+    else {
+        total = "0";
     }
 }
 int main() {

@@ -3,6 +3,7 @@
 #include <string>
 #include <utility>
 
+using namespace std;
 
 void addition(int colSums[], string& number) {
     int col = 0;
@@ -17,19 +18,19 @@ void addition(int colSums[], string& number) {
 
 
 int main() {
-    std::ifstream file("input.txt");
+    ifstream file("input.txt");
     if(!file) {
-        std::cerr << "Error: input.txt couldn't open\n";
+        cerr << "Error: input.txt couldn't open\n";
         return 1; 
     }
     
-    std::string number;
-    std::string total = "0";
+    string number;
+    string total = "0";
     while(file >> number) {
         addition(total, number);
     }
-    std::cout << "Full sum: " << total << "\n";
-    std::cout << "First 10 digits: " << total.substr(0, 10) << '\n';
+    cout << "Full sum: " << total << "\n";
+    cout << "First 10 digits: " << total.substr(0, 10) << '\n';
     return 0; 
 }
 

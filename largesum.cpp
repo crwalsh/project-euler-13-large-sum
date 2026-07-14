@@ -4,40 +4,18 @@
 #include <utility>
 
 
-void addition(std::string& total, std::string number) {
-    if(number.length() > total.length()) {
-        std::swap(total, number);
+void addition(int colSums[], string& number) {
+    int col = 0;
+    int placeInd = number.size();
+    while(placeInd > 0){
+        placeInd--;
+        colSums[col] = colSums[col] + (number[placeInd] - '0');
+        col++
     }
-    int totalindex = static_cast<int>(total.length()) - 1;
-    int numindex = static_cast<int>(number.length()) -1;
-    int remainder = 0; 
-    for(; numindex >= 0; numindex--) {
-        int totaldigit = total[totalindex] - '0';
-        int numdigit = number[numindex] - '0';
-        // implement remainder too 
-        int sum = totaldigit + numdigit + remainder; 
-        total[totalindex] = (sum % 10) + '0';
-        remainder = sum / 10; 
-        
-        totalindex--;
-    }
-    
-    while(totalindex >= 0 && remainder > 0) {
-        int sum = (total[totalindex] - '0' + remainder);
-        total[totalindex--] = (sum % 10) + '0';
-        remainder = sum / 10; 
-    }
-    if(remainder > 0) {
-        total.insert(total.begin(), remainder + '0');
-    }
-    std::size_t pos = total.find_first_not_of('0');
-    if (pos != std::string::npos) {
-        total.erase(0, pos);
-    }
-    else {
-        total = "0";
-    }
+
 }
+
+
 int main() {
     std::ifstream file("input.txt");
     if(!file) {

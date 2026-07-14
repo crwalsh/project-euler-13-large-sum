@@ -23,6 +23,21 @@ void carry(int colSums[]){
         col++;
     }
 
+}
+string writeAns(const int colSums[]){
+
+    int leftMostCol = maxSpots - 1;
+    string answer;
+
+    while(leftMostCol > 0 && colSums[leftMostCol] == 0){
+        leftMostCol--;
+    }
+    while(leftMostCol >= 0){
+        answer += colSums[leftMostCol] + '0';
+        leftMostCol--;
+    }
+    return answer;
+}
 
 int main() {
     ifstream file("input.txt");

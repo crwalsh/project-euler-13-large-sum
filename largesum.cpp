@@ -1,7 +1,14 @@
+/*******************************************************************************
+ * Name        : largesum.cpp
+ * Author      : Ciaran Walsh, Lynsey Overturf, Ashley Qian
+ * Version     : 1.0
+ * Date        : July 13, 2026
+ * Description : Solution to Project Euler #13 - Large Sum (Modified)
+ *               https://projecteuler.net/problem=13
+ ******************************************************************************/
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <utility>
 
 using namespace std;
 
@@ -15,8 +22,8 @@ void addition(int colSums[], const string& number) {
         colSums[col] = colSums[col] + (number[placeInd] - '0');
         col++;
     }
-
 }
+
 void carry(int colSums[]){
     int col = 0;
     while(col < maxSpots - 1){
@@ -24,10 +31,9 @@ void carry(int colSums[]){
         colSums[col] = colSums[col] % 10;
         col++;
     }
-
 }
-string writeAns(const int colSums[]){
 
+string writeAns(const int colSums[]){
     int leftMostCol = maxSpots - 1;
     string answer;
 
@@ -50,7 +56,6 @@ int main() {
     
     string number;
     string total;
-
     int colSums[maxSpots] = {};
 
     while(file >> number) {
@@ -59,11 +64,7 @@ int main() {
     carry(colSums);
     total = writeAns(colSums);
 
-
     cout << "Full sum: " << total << "\n";
     cout << "First 10 digits: " << total.substr(0, 10) << '\n';
     return 0; 
 }
-
-
-

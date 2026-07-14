@@ -13,7 +13,7 @@ void addition(int colSums[], const string& number) {
     while(placeInd > 0){
         placeInd--;
         colSums[col] = colSums[col] + (number[placeInd] - '0');
-        col++
+        col++;
     }
 
 }

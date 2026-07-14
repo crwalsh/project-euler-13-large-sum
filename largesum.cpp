@@ -15,6 +15,13 @@ void addition(int colSums[], string& number) {
     }
 
 }
+void carry(int colSums[]){
+    int col = 0;
+    while(col < maxSpots - 1){
+        colSums[col + 1] = colSums[col + 1] +(colSums[col] / 10);
+        colSums[col] = colSums[col] % 10;
+        col++;
+    }
 
 
 int main() {

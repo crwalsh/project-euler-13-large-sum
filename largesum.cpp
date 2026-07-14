@@ -3,55 +3,65 @@
 #include <string>
 #include <utility>
 
+using namespace std;
 
-void addition(std::string& total, std::string number) {
-    if(number.length() > total.length()) {
-        std::swap(total, number);
+const int maxSpots = 55;
+
+void addition(int colSums[], const string& number) {
+    int col = 0;
+    int placeInd = number.size();
+    while(placeInd > 0){
+        placeInd--;
+        colSums[col] = colSums[col] + (number[placeInd] - '0');
+        col++;
     }
-    int totalindex = static_cast<int>(total.length()) - 1;
-    int numindex = static_cast<int>(number.length()) -1;
-    int remainder = 0; 
-    for(; numindex >= 0; numindex--) {
-        int totaldigit = total[totalindex] - '0';
-        int numdigit = number[numindex] - '0';
-        // implement remainder too 
-        int sum = totaldigit + numdigit + remainder; 
-        total[totalindex] = (sum % 10) + '0';
-        remainder = sum / 10; 
-        
-        totalindex--;
-    }
-    
-    while(totalindex >= 0 && remainder > 0) {
-        int sum = (total[totalindex] - '0' + remainder);
-        total[totalindex--] = (sum % 10) + '0';
-        remainder = sum / 10; 
-    }
-    if(remainder > 0) {
-        total.insert(total.begin(), remainder + '0');
-    }
-    std::size_t pos = total.find_first_not_of('0');
-    if (pos != std::string::npos) {
-        total.erase(0, pos);
-    }
-    else {
-        total = "0";
-    }
+
 }
+void carry(int colSums[]){
+    int col = 0;
+    while(col < maxSpots - 1){
+        colSums[col + 1] = colSums[col + 1] +(colSums[col] / 10);
+        colSums[col] = colSums[col] % 10;
+        col++;
+    }
+
+}
+string writeAns(const int colSums[]){
+
+    int leftMostCol = maxSpots - 1;
+    string answer;
+
+    while(leftMostCol > 0 && colSums[leftMostCol] == 0){
+        leftMostCol--;
+    }
+    while(leftMostCol >= 0){
+        answer += colSums[leftMostCol] + '0';
+        leftMostCol--;
+    }
+    return answer;
+}
+
 int main() {
-    std::ifstream file("input.txt");
+    ifstream file("input.txt");
     if(!file) {
-        std::cerr << "Error: input.txt couldn't open\n";
+        cerr << "Error: input.txt couldn't open\n";
         return 1; 
     }
     
-    std::string number;
-    std::string total = "0";
+    string number;
+    string total;
+
+    int colSums[maxSpots] = {};
+
     while(file >> number) {
-        addition(total, number);
+        addition(colSums, number);
     }
-    std::cout << "Full sum: " << total << "\n";
-    std::cout << "First 10 digits: " << total.substr(0, 10) << '\n';
+    carry(colSums);
+    total = writeAns(colSums);
+
+
+    cout << "Full sum: " << total << "\n";
+    cout << "First 10 digits: " << total.substr(0, 10) << '\n';
     return 0; 
 }
 

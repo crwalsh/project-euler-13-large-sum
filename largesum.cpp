@@ -5,7 +5,9 @@
 
 using namespace std;
 
-void addition(int colSums[], string& number) {
+const int maxSpots = 55;
+
+void addition(int colSums[], const string& number) {
     int col = 0;
     int placeInd = number.size();
     while(placeInd > 0){
@@ -47,10 +49,17 @@ int main() {
     }
     
     string number;
-    string total = "0";
+    string total;
+
+    int colSums[maxSpots] = {};
+
     while(file >> number) {
-        addition(total, number);
+        addition(colSums, number);
     }
+    carry(colSums);
+    total = writeAns(colSums);
+
+
     cout << "Full sum: " << total << "\n";
     cout << "First 10 digits: " << total.substr(0, 10) << '\n';
     return 0; 
